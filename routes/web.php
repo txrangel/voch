@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Livewire\{
+    CreateUnidades,
+    EditUnidades,
+    DeleteUnidades,
+    CreateFuncionarios,
+    EditFuncionarios,
+    DeleteFuncionarios
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', CreateUnidades::class);
+
+Route::get('/create-unidades', CreateUnidades::class)->name('create-unidades');
+Route::get('/edit-unidades', EditUnidades::class)->name('edit-unidades');
+Route::get('/delete-unidades', DeleteUnidades::class)->name('delete-unidades');
+
+Route::get('/create-funcionarios', CreateFuncionarios::class)->name('create-funcionarios');
+Route::get('/edit-funcionarios', EditFuncionarios::class)->name('edit-funcionarios');
+Route::get('/delete-funcionarios', DeleteFuncionarios::class)->name('delete-funcionarios');
