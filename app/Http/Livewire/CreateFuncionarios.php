@@ -8,12 +8,17 @@ use App\Models\{
     Funcionario,
     Unidade
 };
+use App\Notifications\EmailFuncionario;
 use Illuminate\Support\Facades\{
     Redirect,
     Mail,
     Http,
     DB
 };
+use Illuminate\Support\Facades\Notification;
+use PharIo\Manifest\Email;
+use Illuminate\Broadcasting\Channel;
+
 class CreateFuncionarios extends Component
 {
     public $nome = '';
@@ -99,7 +104,9 @@ class CreateFuncionarios extends Component
                 'user_id' => '1',
                 //'user_id' => auth()->user()->id,
             ]);
-            //Mail::to(auth()->user()->email)->bcc('joaovitorrtd@gmail.com')->send(new ReservaSalas($ultimo_cadastro));
+            Notification::route('mail', [
+                $this->email => $this->nome,
+            ])->notify(new EmailFuncionario());
             return Redirect::route('create-funcionarios')->with('status', 'concluida');
         }else{
             return Redirect::route('create-funcionarios')->with('status', 'negada-existente');

@@ -7,8 +7,10 @@ use App\Http\Livewire\{
     DeleteUnidades,
     CreateFuncionarios,
     EditFuncionarios,
-    DeleteFuncionarios
+    DeleteFuncionarios,
+    Dashboard
 };
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +22,7 @@ use App\Http\Livewire\{
 |
 */
 
-Route::get('/', CreateUnidades::class);
+Route::get('/', Dashboard::class);
 
 Route::get('/create-unidades', CreateUnidades::class)->name('create-unidades');
 Route::get('/edit-unidades', EditUnidades::class)->name('edit-unidades');

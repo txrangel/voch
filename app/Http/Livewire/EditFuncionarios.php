@@ -99,7 +99,7 @@ class EditFuncionarios extends Component
             $this->cidade = $respostaapi['localidade'];
             $this->estado = $respostaapi['uf'];
         } else {
-            return Redirect::route('create-funcionarios')->with('status', 'sem-cep');
+            return Redirect::route('edit-funcionarios')->with('status', 'sem-cep');
         }
     }
     public function edit()
