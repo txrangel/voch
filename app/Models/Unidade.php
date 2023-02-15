@@ -12,7 +12,8 @@ class Unidade extends Model
     protected $fillable = [
         'razao_social',
         'nome_fantasia',
-        'cnpj'
+        'cnpj',
+        'user_id'
     ];
 
     public function funcionarios(){

@@ -15,6 +15,7 @@ class Funcionario extends Model
         'data_nascimento',
         'idade',
         'documento',
+        'user_id',
         'unidade_id',
         'endereco_id',
     ];

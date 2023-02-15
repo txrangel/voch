@@ -22,7 +22,7 @@ return new class extends Migration
             $table->char('documento', 11);
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('unidade_id')->unsigned();
-            //$table->bigInteger('endereco_id')->unsigned();
+            $table->bigInteger('endereco_id')->unsigned();
             $table->timestamps();
         });
         Schema::table('funcionarios', function (Blueprint $table) {

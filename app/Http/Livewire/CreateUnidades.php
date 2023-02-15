@@ -8,7 +8,7 @@ use App\Models\{
 };
 use Illuminate\Support\Facades\{
 Redirect,
-Mail
+DB
 };
 class CreateUnidades extends Component
 {
@@ -30,20 +30,23 @@ class CreateUnidades extends Component
         ]);
         
     }
-
+    public function atualizarpagina(){
+        return Redirect::route('create-unidades');
+    }
     public function create(){
         $this->validate();
-        if(!(Unidade::where('cnpj', $this->cnpj)->value('razao_social'))){
+        $query = "select id from voch.unidades where cnpj = ?";
+        if(!(DB::select($query, [$this->cnpj]))){
             $ultimo_cadastro = Unidade::create([
                 'nome_fantasia' => $this->nome_fantasia,
                 'razao_social' => $this->razao_social,
                 'cnpj' => $this->cnpj,
+                'user_id' => '1',
                 //'user_id' => auth()->user()->id,
             ]);
-            //Mail::to(auth()->user()->email)->bcc('joaovitorrtd@gmail.com')->send(new ReservaSalas($ultimo_cadastro));
             return Redirect::route('create-unidades')->with('status', 'concluida');
         }else{
             return Redirect::route('create-unidades')->with('status', 'negada-existente');
-        } 
+        }
     }
 }

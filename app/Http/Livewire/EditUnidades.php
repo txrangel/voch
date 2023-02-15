@@ -8,7 +8,6 @@ use App\Models\{
 };
 use Illuminate\Support\Facades\{
 Redirect,
-Mail,
 DB
 };
 
@@ -34,15 +33,23 @@ class EditUnidades extends Component
         ]);
     }
     public function verificar(){
-        $this->razao_social = DB::table('unidades')->where('id', $this->unidade)->value('razao_social');
-        $this->nome_fantasia= DB::table('unidades')->where('id', $this->unidade)->value('nome_fantasia');
-        $this->cnpj= DB::table('unidades')->where('id', $this->unidade)->value('cnpj');
+        $busca = DB::table('unidades')->where('id', $this->unidade);
+        $this->razao_social = $busca->value('razao_social');
+        $this->nome_fantasia= $busca->value('nome_fantasia');
+        $this->cnpj= $busca->value('cnpj');
+    }
+    public function atualizarpagina(){
+        return Redirect::route('edit-unidades');
     }
     public function edit(){
         $this->validate();
         $ultimo_cadastro = Unidade::find($this->unidade);
-        $ultimo_cadastro->update(['razao_social' => $this->razao_social,'cnpj' => $this->cnpj,'nome_fantasia' => $this->nome_fantasia]);
-        //Mail::to(auth()->user()->email)->bcc('joaovitorrtd@gmail.com')->send(new ReservaSalas($ultimo_cadastro));
+        $ultimo_cadastro->update([
+            'razao_social' => $this->razao_social,
+            'cnpj' => $this->cnpj,
+            'nome_fantasia' => $this->nome_fantasia,
+            'user_id' => '1'
+            /*,'user_id' => auth()->user()->id*/]);
         return Redirect::route('edit-unidades')->with('status', 'concluida');
     }
 }

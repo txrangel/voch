@@ -8,7 +8,6 @@ use App\Models\{
 };
 use Illuminate\Support\Facades\{
     Redirect,
-    Mail,
 };
 class DeleteUnidades extends Component
 {
@@ -24,10 +23,12 @@ class DeleteUnidades extends Component
             'unidades' => $unidades,
         ]);
     }
+    public function atualizarpagina(){
+        return Redirect::route('delete-unidades');
+    }
     public function delete(){
         $this->validate();
         $ultimo_cadastro = Unidade::where('id',$this->unidade)->delete();
-        //Mail::to(auth()->user()->email)->bcc('joaovitorrtd@gmail.com')->send(new ReservaSalas($ultimo_cadastro));
         return Redirect::route('delete-unidades')->with('status', 'concluida');
     }
 }
